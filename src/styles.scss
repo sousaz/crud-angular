@@ -10,12 +10,11 @@ $custom-theme: mat.define-light-theme((
   color: (
     primary: $custom-app-primary,
     accent: $custom-app-secondaty,
-    warn: $custom-app-secondaty,
+    warn: $custom-app-warn,
   )
  ));
 
-@include mat.all-component-themes($custom-theme);
-@include mat.core-theme($custom-theme);
+@include mat.all-component-colors($custom-theme);
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
