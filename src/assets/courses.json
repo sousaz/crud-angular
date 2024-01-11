@@ -1,4 +1,4 @@
 [
-  {"_id": "01","name": "heliana", "category": "Hydrogen"},
-  {"_id": "02","name": "obama", "category": "Helium"}
+  {"_id": "01","name": "heliana", "category": "front-end"},
+  {"_id": "02","name": "obama", "category": "back-end"}
 ]
