@@ -3,6 +3,8 @@ import { AppMaterialModule } from '../../shared/app-material/app-material.module
 
 import { Course } from '../model/course';
 import { CoursesService } from '../services/courses.service';
+//import { Observable } from 'rxjs/internal/Observable';
+import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
@@ -10,16 +12,18 @@ import { Observable } from 'rxjs/internal/Observable';
   standalone: true,
   imports: [
     AppMaterialModule,
+    CommonModule,
   ],
   templateUrl: './courses.component.html',
   styleUrl: './courses.component.scss'
 })
 export class CoursesComponent {
-  courses: Course[] = [];
+  courses: Observable<Course[]>;
   displayedColumns = ['name', 'category']
 
 
   constructor(private coursesService: CoursesService){
-    this.coursesService.list().subscribe(courses => this.courses = courses)
+    this.courses = this.coursesService.list()
+    //this.coursesService.list().subscribe(courses => this.courses = courses)
   }
 }
