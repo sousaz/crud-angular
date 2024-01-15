@@ -10,6 +10,7 @@ import { ErrorDialogComponent } from '../../shared/components/error-dialog/error
 import { SharedModule } from '../../shared/shared.module';
 import { Course } from '../model/course';
 import { CoursesService } from '../services/courses.service';
+import { CoursesListComponent } from "../courses-list/courses-list.component";
 
 @Component({
     selector: 'app-courses',
@@ -19,12 +20,12 @@ import { CoursesService } from '../services/courses.service';
     imports: [
         AppMaterialModule,
         CommonModule,
-        SharedModule
+        SharedModule,
+        CoursesListComponent
     ]
 })
 export class CoursesComponent {
   courses: Observable<Course[]>;
-  displayedColumns = ['name', 'category', 'actions']
 
 
   constructor(
