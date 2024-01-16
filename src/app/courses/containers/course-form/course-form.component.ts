@@ -1,3 +1,4 @@
+import { Course } from './../../model/course';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -6,6 +7,7 @@ import { AppMaterialModule } from '../../../shared/app-material/app-material.mod
 import { SharedModule } from '../../../shared/shared.module';
 import { CoursesService } from '../../services/courses.service';
 import { Location } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-course-form',
@@ -26,11 +28,21 @@ export class CourseFormComponent {
     private service: CoursesService,
     private _snackBar: MatSnackBar,
     private location: Location,
+    private route: ActivatedRoute,
     ){
     this.form = this.formBuilder.group({
-      name: [null],
-      category: [null]
+      _id: [''],
+      name: [''],
+      category: ['']
     })
+
+    const course: Course = this.route.snapshot.data["course"]
+    this.form.setValue({
+      _id: course._id,
+      name: course.name,
+      category: course.category,
+    })
+
   }
 
   onCancel(){
