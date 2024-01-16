@@ -1,9 +1,8 @@
-import { Component, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { AppMaterialModule } from '../../../shared/app-material/app-material.module';
 import { SharedModule } from '../../../shared/shared.module';
 import { Course } from '../../model/course';
-import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-courses-list',
@@ -17,12 +16,17 @@ import { EventEmitter } from '@angular/core';
 })
 export class CoursesListComponent {
   @Input() courses: Course[] = []
-  @Output() add = new EventEmitter()
+  @Output() add = new EventEmitter(false)
+  @Output() edit = new EventEmitter(false)
   readonly displayedColumns = ['name', 'category', 'actions']
 
   constructor(){}
 
   onAdd(){
-    this.add.emit('true')
+    this.add.emit(true)
+  }
+
+  onEdit(course: Course){
+    this.edit.emit(course)
   }
 }
