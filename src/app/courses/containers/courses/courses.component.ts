@@ -5,12 +5,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, of } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 
-import { AppMaterialModule } from '../../shared/app-material/app-material.module';
-import { ErrorDialogComponent } from '../../shared/components/error-dialog/error-dialog.component';
-import { SharedModule } from '../../shared/shared.module';
-import { Course } from '../model/course';
-import { CoursesService } from '../services/courses.service';
-import { CoursesListComponent } from "../courses-list/courses-list.component";
+import { AppMaterialModule } from '../../../shared/app-material/app-material.module';
+import { ErrorDialogComponent } from '../../../shared/components/error-dialog/error-dialog.component';
+import { SharedModule } from '../../../shared/shared.module';
+import { Course } from '../../model/course';
+import { CoursesService } from '../../services/courses.service';
+import { CoursesListComponent } from "../../components/courses-list/courses-list.component";
 
 @Component({
     selector: 'app-courses',
@@ -41,7 +41,6 @@ export class CoursesComponent {
           return of([])
         })
       )
-    //this.coursesService.list().subscribe(courses => this.courses = courses)
   }
 
   onError(errorMsg: string) {

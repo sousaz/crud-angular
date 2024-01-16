@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { AppMaterialModule } from '../../shared/app-material/app-material.module';
-import { SharedModule } from '../../shared/shared.module';
-import { CoursesService } from '../services/courses.service';
+import { AppMaterialModule } from '../../../shared/app-material/app-material.module';
+import { SharedModule } from '../../../shared/shared.module';
+import { CoursesService } from '../../services/courses.service';
 import { Location } from '@angular/common';
 
 @Component({
@@ -38,7 +38,7 @@ export class CourseFormComponent {
   }
 
   onSubmit(){
-    this.service.save(this.form.value).subscribe(result => this.onSuccess(), error => this.onError());
+    this.service.save(this.form.value).subscribe({next: () => this.onSuccess(), error: () => this.onError()});
     this.onCancel()
   }
 
