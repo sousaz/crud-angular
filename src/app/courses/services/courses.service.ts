@@ -22,11 +22,22 @@ export class CoursesService {
     )
   }
 
+  loadById(id: string){
+    return this.httpClient.get<Course>(`${this.API}/${id}`)
+  }
+
   save(record: Course){
+    if(record._id){
+      return this.update(record)
+    }
+    return this.create(record)
+  }
+
+  private create(record: Course){
     return this.httpClient.post<Course>(this.API, record)
   }
 
-  loadById(id: string){
-    return this.httpClient.get<Course>(`${this.API}/${id}`)
+  private update(record: Course){
+    return this.httpClient.put<Course>(`${this.API}/${record._id}`, record)
   }
 }
