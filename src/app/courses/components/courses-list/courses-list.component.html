@@ -27,7 +27,7 @@
       <button (click)="this.onEdit(course)" class="button-margin" mat-mini-fab color="primary" aria-label="Editar um curso">
         <mat-icon>edit</mat-icon>
       </button>
-      <button class="button-margin" mat-mini-fab color="warn" aria-label="Remover um curso">
+      <button (click)="this.onDelete(course)" class="button-margin" mat-mini-fab color="warn" aria-label="Remover um curso">
         <mat-icon>delete</mat-icon>
       </button>
     </mat-cell>

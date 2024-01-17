@@ -36,16 +36,21 @@ export class CourseFormComponent {
       category: ['']
     })
 
+    this.loadData()
+
+  }
+
+  loadData(){
     const course: Course = this.route.snapshot.data["course"]
     this.form.setValue({
       _id: course._id,
       name: course.name,
       category: course.category,
     })
-
   }
 
   onCancel(){
+    this.loadData()
     this.location.back()
   }
 

@@ -11,6 +11,7 @@ import { SharedModule } from '../../../shared/shared.module';
 import { Course } from '../../model/course';
 import { CoursesService } from '../../services/courses.service';
 import { CoursesListComponent } from "../../components/courses-list/courses-list.component";
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
     selector: 'app-courses',
@@ -25,15 +26,20 @@ import { CoursesListComponent } from "../../components/courses-list/courses-list
     ]
 })
 export class CoursesComponent {
-  courses: Observable<Course[]>;
+  courses: Observable<Course[]> | null = null;
 
 
   constructor(
     private coursesService: CoursesService,
     public dialog: MatDialog,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private snackBar: MatSnackBar,
     ){
+    this.refresh()
+  }
+
+  refresh(){
     this.courses = this.coursesService.list()
       .pipe(
         catchError(error => {
@@ -55,5 +61,20 @@ export class CoursesComponent {
 
   onEdit(course: Course){
     this.router.navigate(["edit", course._id], {relativeTo:this.route})
+  }
+
+  onRemove(course: Course){
+    this.coursesService.remove(course._id)
+      .subscribe({
+        next: () => {
+          this.refresh()
+          this.snackBar.open("Curso removido com sucesso!", 'X', {
+            duration: 5000,
+            verticalPosition: "top",
+            horizontalPosition: "center"
+          })
+        },
+        error: () => this.onError("Erro ao tentar remover curso!")
+      })
   }
 }
