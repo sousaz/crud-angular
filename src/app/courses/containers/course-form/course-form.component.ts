@@ -9,6 +9,7 @@ import { CoursesService } from '../../services/courses.service';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Lesson } from '../../model/lesson';
+import { FormUtilsService } from '../../../shared/form/form-utils.service';
 
 @Component({
   selector: 'app-course-form',
@@ -30,6 +31,7 @@ export class CourseFormComponent {
     private _snackBar: MatSnackBar,
     private location: Location,
     private route: ActivatedRoute,
+    public formUtils: FormUtilsService
     ){
 
     const course: Course = this.route.snapshot.data["course"]
@@ -83,7 +85,7 @@ export class CourseFormComponent {
       this.service.save(this.form.value).subscribe({next: () => this.onSuccess(), error: () => this.onError()});
       this.onCancel()
     } else {
-      alert('form invalido')
+      this.formUtils.validateAllFormFields(this.form)
     }
   }
 
@@ -93,32 +95,5 @@ export class CourseFormComponent {
 
   private onError(){
     this._snackBar.open("Erro ao salvar curso", "", {duration: 5000})
-  }
-
-  getErrorMessage(fieldName: string){
-    const field = this.form.get(fieldName)
-
-    if(field?.hasError("required")){
-      return "Campo obrigatório"
-    }
-
-    if(field?.hasError("minlength")){
-      const requiredLength: number = field.errors
-        ? field.errors["minlength"]["requiredLength"]
-          : 5
-      return `Tamanho minímo precisa ser de ${requiredLength} caracteres`
-    }
-
-    if(field?.hasError("maxlength")){
-      const requiredLength: number = field.errors ? field.errors["maxlength"]["requiredLength"] : 200
-      return `Tamanho máximo excedido de ${requiredLength} caracteres`
-    }
-
-    return "Campo inválido"
-  }
-
-  isFormArrayRequired(){
-  const lessons = this.form.get("lessons") as UntypedFormArray
-  return !lessons.valid && lessons.hasError("required") && lessons.touched
   }
 }
