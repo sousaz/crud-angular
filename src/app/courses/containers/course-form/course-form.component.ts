@@ -38,28 +38,25 @@ export class CourseFormComponent {
       _id: [course._id],
       name: [course.name, [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
       category: [course.category, [Validators.required]],
-      lessons: this.formBuilder.array(this.retrieveLessons(course))
+      lessons: this.formBuilder.array(this.retrieveLessons(course), Validators.required)
     })
   }
 
   private retrieveLessons(course: Course){
-    // console.log("testando: ", course);
     const lessons = []
     if(course?.lessons){
       course.lessons.forEach(lesson => lessons.push(this.createLesson(lesson)))
     } else {
       lessons.push(this.createLesson())
     }
-    console.log("teste: ", lessons);
-
     return lessons
   }
 
   private createLesson(lesson: Lesson = {id: "", name: "", youtubeUrl: ""}){
     return this.formBuilder.group({
       id: [lesson.id],
-      name: [lesson.name],
-      youtubeUrl: [lesson.youtubeUrl]
+      name: [lesson.name, [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
+      youtubeUrl: [lesson.youtubeUrl, [Validators.required, Validators.minLength(10), Validators.maxLength(11)]]
     })
   }
 
@@ -82,8 +79,12 @@ export class CourseFormComponent {
   }
 
   onSubmit(){
-    this.service.save(this.form.value).subscribe({next: () => this.onSuccess(), error: () => this.onError()});
-    this.onCancel()
+    if(this.form.valid){
+      this.service.save(this.form.value).subscribe({next: () => this.onSuccess(), error: () => this.onError()});
+      this.onCancel()
+    } else {
+      alert('form invalido')
+    }
   }
 
   private onSuccess(){
@@ -114,5 +115,10 @@ export class CourseFormComponent {
     }
 
     return "Campo inválido"
+  }
+
+  isFormArrayRequired(){
+  const lessons = this.form.get("lessons") as UntypedFormArray
+  return !lessons.valid && lessons.hasError("required") && lessons.touched
   }
 }
