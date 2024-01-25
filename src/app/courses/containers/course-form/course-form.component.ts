@@ -1,6 +1,6 @@
 import { Course } from './../../model/course';
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, UntypedFormArray, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { AppMaterialModule } from '../../../shared/app-material/app-material.module';
@@ -33,22 +33,25 @@ export class CourseFormComponent {
     ){
 
     const course: Course = this.route.snapshot.data["course"]
+
     this.form = this.formBuilder.group({
       _id: [course._id],
       name: [course.name, [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
       category: [course.category, [Validators.required]],
       lessons: this.formBuilder.array(this.retrieveLessons(course))
     })
-
   }
 
   private retrieveLessons(course: Course){
+    // console.log("testando: ", course);
     const lessons = []
     if(course?.lessons){
       course.lessons.forEach(lesson => lessons.push(this.createLesson(lesson)))
     } else {
       lessons.push(this.createLesson())
     }
+    console.log("teste: ", lessons);
+
     return lessons
   }
 
@@ -58,6 +61,10 @@ export class CourseFormComponent {
       name: [lesson.name],
       youtubeUrl: [lesson.youtubeUrl]
     })
+  }
+
+  getLessonsFormArray(){
+    return (<UntypedFormArray>this.form.get("lessons")).controls
   }
 
   onCancel(){
