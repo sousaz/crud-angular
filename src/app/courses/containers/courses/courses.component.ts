@@ -5,9 +5,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, of, tap } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 
-import { AppMaterialModule } from '../../../shared/app-material/app-material.module';
+
 import { ErrorDialogComponent } from '../../../shared/components/error-dialog/error-dialog.component';
-import { SharedModule } from '../../../shared/shared.module';
+
 import { Course } from '../../model/course';
 import { CoursesService } from '../../services/courses.service';
 import { CoursesListComponent } from "../../components/courses-list/courses-list.component";
@@ -22,11 +22,9 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
     templateUrl: './courses.component.html',
     styleUrl: './courses.component.scss',
     imports: [
-        AppMaterialModule,
-        CommonModule,
-        SharedModule,
-        CoursesListComponent
-    ]
+    CommonModule,
+    CoursesListComponent
+]
 })
 export class CoursesComponent {
   courses: Observable<CoursePage> | null = null;

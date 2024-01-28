@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, UntypedFormArray, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { AppMaterialModule } from '../../../shared/app-material/app-material.module';
-import { SharedModule } from '../../../shared/shared.module';
+
+
 import { CoursesService } from '../../services/courses.service';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
@@ -15,11 +15,9 @@ import { FormUtilsService } from '../../../shared/form/form-utils.service';
   selector: 'app-course-form',
   standalone: true,
   imports: [
-    SharedModule,
-    AppMaterialModule,
     FormsModule,
     ReactiveFormsModule,
-  ],
+],
   templateUrl: './course-form.component.html',
   styleUrl: './course-form.component.scss'
 })
