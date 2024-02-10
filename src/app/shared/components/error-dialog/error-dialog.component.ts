@@ -4,7 +4,6 @@ import { MatButtonModule } from '@angular/material/button';
 
 @Component({
     selector: 'app-error-dialog',
-    standalone: false,
     templateUrl: './error-dialog.component.html',
     styleUrl: './error-dialog.component.scss',
     standalone: true,

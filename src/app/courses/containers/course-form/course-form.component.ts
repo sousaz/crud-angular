@@ -1,33 +1,49 @@
-import { Course } from './../../model/course';
-import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, UntypedFormArray, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
-
-
-
-import { CoursesService } from '../../services/courses.service';
 import { Location } from '@angular/common';
+import { Component } from '@angular/core';
+import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule, UntypedFormArray, Validators } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatOptionModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { ActivatedRoute } from '@angular/router';
-import { Lesson } from '../../model/lesson';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { FormUtilsService } from '../../../shared/form/form-utils.service';
+import { Lesson } from '../../model/lesson';
+import { CoursesService } from '../../services/courses.service';
+import { Course } from './../../model/course';
 
 @Component({
   selector: 'app-course-form',
   standalone: true,
   imports: [
-    FormsModule,
     ReactiveFormsModule,
-],
+    MatCardModule,
+    MatToolbarModule,
+    MatFormFieldModule,
+    MatOptionModule,
+    MatIconModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatInputModule,
+    MatSelectModule,
+    MatSnackBarModule,
+  ],
   templateUrl: './course-form.component.html',
   styleUrl: './course-form.component.scss'
 })
 export class CourseFormComponent {
 
   form!: FormGroup
-  constructor(private formBuilder: FormBuilder,
+  constructor(private formBuilder: NonNullableFormBuilder,
     private service: CoursesService,
     private _snackBar: MatSnackBar,
     private location: Location,
+    private dialog: MatDialog,
     private route: ActivatedRoute,
     public formUtils: FormUtilsService
     ){

@@ -1,20 +1,22 @@
 import { CommonModule } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
+import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, of, tap } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 
-
-import { ErrorDialogComponent } from '../../../shared/components/error-dialog/error-dialog.component';
-
-import { Course } from '../../model/course';
-import { CoursesService } from '../../services/courses.service';
-import { CoursesListComponent } from "../../components/courses-list/courses-list.component";
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmationDialogComponent } from '../../../shared/components/confirmation-dialog/confirmation-dialog.component';
+import { ErrorDialogComponent } from '../../../shared/components/error-dialog/error-dialog.component';
+import { CoursesListComponent } from '../../components/courses-list/courses-list.component';
+import { Course } from '../../model/course';
 import { CoursePage } from '../../model/Course-page';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { CoursesService } from '../../services/courses.service';
+
 
 @Component({
     selector: 'app-courses',
@@ -23,8 +25,12 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
     styleUrl: './courses.component.scss',
     imports: [
     CommonModule,
-    CoursesListComponent
-]
+    CoursesListComponent,
+    MatProgressSpinnerModule,
+    MatPaginatorModule,
+    MatToolbarModule,
+    MatCardModule,
+  ]
 })
 export class CoursesComponent {
   courses: Observable<CoursePage> | null = null;
